@@ -1,7 +1,7 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Конвертер</router-link>
+    <router-link to="/currencylist">Список валют</router-link>
   </nav>
   <router-view />
 </template>
@@ -14,17 +14,25 @@
   text-align: center;
   color: #2c3e50;
 }
-
+body {
+  background-color: #5f89b4;
+}
 nav {
-  padding: 30px;
+  padding: 30px 0;
+  background-color: #577ca1;
 
   a {
+    padding: 0 10px;
+    font-size: 1.2rem;
     font-weight: bold;
     color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #15e386;
     }
   }
+}
+input {
+  margin: 30px;
 }
 </style>
