@@ -1,6 +1,6 @@
 <template>
   <input
-    v-model="value"
+    v-model.trim="value"
     type="text"
     class="input"
     placeholder="10 RUB in USD"
@@ -8,15 +8,12 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "UserInput",
   data() {
     return {
       value: "",
-      amount: null,
-      curentCurrency: "",
-      targetCurrency: "",
-      valid: "",
     };
   },
   watch: {
@@ -29,13 +26,16 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["GET_USER_INPUTS"]),
     parseUserInput() {
       const pattern = /(\d+)\s+(\D{3})\s+[iI][nN]\s+(\D{3})/;
       const match = this.value.match(pattern);
-      console.log(match);
-      this.amount = Number(match[1]);
-      this.curentCurrency = match[2].toUpperCase();
-      this.targetCurrency = match[3].toUpperCase();
+      const [inputString, quantity, curentCurrency, targetCurrency] = match;
+      if (quantity == 0) {
+        this.value = this.value.slice(match[1].length);
+        return inputString;
+      }
+      this.GET_USER_INPUTS({ quantity, curentCurrency, targetCurrency });
     },
   },
 };
