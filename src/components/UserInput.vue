@@ -1,19 +1,30 @@
 <template>
   <input
     v-model.trim="value"
+    @input="this.matchName = FIND_CURRENCY_NAME($event.target.value)"
     type="text"
     class="input"
     placeholder="10 RUB in USD"
   />
+  <div v-if="matchName && value" class="match-names">
+    <span
+      v-for="(name, index) in matchName"
+      :key="index"
+      class="match-names__item"
+    >
+      {{ name }}
+    </span>
+  </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "UserInput",
   data() {
     return {
       value: "",
+      matchName: "",
     };
   },
   watch: {
@@ -23,6 +34,12 @@ export default {
       if (pattern.test(newValue)) {
         this.parseUserInput();
       }
+    },
+  },
+  computed: {
+    ...mapGetters(["FIND_CURRENCY_NAME"]),
+    tootoo() {
+      return console.log(this.value);
     },
   },
   methods: {
@@ -49,5 +66,10 @@ export default {
   border-color: transparent;
   border-radius: 4px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+}
+.match-names {
+  &__item:not(:last-child) {
+    padding-right: 10px;
+  }
 }
 </style>

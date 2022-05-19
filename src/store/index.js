@@ -13,6 +13,14 @@ export default createStore({
       const amount = state.quantity * state.rate;
       return amount < 1 ? amount.toPrecision(2) : amount.toFixed(2);
     },
+    GET_CURRENCY_NAME: (state) => {
+      return Object.keys(state.currencyList);
+    },
+    FIND_CURRENCY_NAME: (state, getters) => (currencyName) => {
+      return getters.GET_CURRENCY_NAME.filter((nname) =>
+        nname.startsWith(currencyName.replace(/\d+\s+/, "").toUpperCase())
+      );
+    },
   },
   mutations: {
     SET_USER_INPUTS: (state, parsedValue) => {
@@ -47,5 +55,4 @@ export default createStore({
       commit("SET_RATE", price[state.targetCurrency]);
     },
   },
-  modules: {},
 });
