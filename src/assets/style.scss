@@ -1,0 +1,94 @@
+:root {
+	--accent: #141c24;
+	--text: #2c3e50;
+	--regular-text: 18px;
+	--lineheight: 26px;
+	--userfont: Avenir, sans-serif;
+	--systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+}
+
+::placeholder { color: #666; }
+::selection { background-color: var(--accent); color: #fff; }
+input, textarea { outline: none; }
+input:focus:required:invalid, textarea:focus:required:invalid { border-color: red; }
+input:required:valid, textarea:required:valid { border-color: green; }
+
+body {
+	font-size: var(--regular-text);
+  font-weight: 400;
+	line-height: var(--lineheight);
+	color: var(--text);
+	min-width: 320px;
+	position: relative;
+	overflow-x: hidden;
+}
+* {
+    margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  max-width: 1030px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+  position: relative;
+}
+
+.currency-list {
+  &__title {
+    padding: 1em 0;
+    text-transform: uppercase;
+  }
+  &__subtitle {
+    font-size: 3em;
+    font-weight: 200;
+    letter-spacing: 3px;
+    margin-bottom: 1em;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+    align-items: baseline;
+    gap: 1em;
+    list-style: none;
+    &-item {
+      font-weight: bold;
+    }
+  }
+}
+.converted-amount {
+  padding: .6em 0 ;
+  font-size: 3em;
+}
+
+@media (max-width: 1024px) {
+  .currency-list__list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+  .container {
+    padding: 0 10px;
+  }
+  .currency-list__list {
+    grid-template-columns: repeat(2, 1fr);
+    align-content: space-between;
+    justify-content: space-between;
+  }
+}
+

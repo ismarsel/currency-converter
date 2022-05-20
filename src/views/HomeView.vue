@@ -1,9 +1,12 @@
 <template>
-  <user-input /> <br />
-  {{ amount }} <br />
-  {{ curentCurrency }} <br />
-  {{ targetCurrency }} <br />
-  {{ GET_AMOUNT }}
+  <main class="main">
+    <div class="container">
+      <user-input />
+      <div v-show="rate" class="converted-amount">
+        {{ GET_AMOUNT }}{{ targetCurrency }}
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>
@@ -15,7 +18,7 @@ export default {
     UserInput,
   },
   computed: {
-    ...mapState(["amount", "curentCurrency", "targetCurrency", "rate"]),
+    ...mapState(["curentCurrency", "targetCurrency", "rate"]),
     ...mapGetters(["GET_AMOUNT"]),
   },
   methods: {

@@ -23,7 +23,7 @@ nav {
 
   a {
     padding: 0 10px;
-    font-size: 1.2rem;
+    font-size: 1.2em;
     font-weight: bold;
     color: #2c3e50;
 
