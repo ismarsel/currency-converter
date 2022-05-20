@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { createPriceRequestUrl } from "@/api";
+import { currenciesUrl, createPriceRequestUrl } from "@/api";
 export default createStore({
   state: {
     quantity: 1,
@@ -7,19 +7,23 @@ export default createStore({
     targetCurrency: "RUB",
     currencyList: null,
     rate: null,
+    rates: null,
   },
   getters: {
     GET_AMOUNT: (state) => {
       const amount = state.quantity * state.rate;
       return amount < 1 ? amount.toPrecision(2) : amount.toFixed(2);
     },
-    GET_CURRENCY_NAME: (state) => {
+    GET_CURRENCY_CODE: (state) => {
       return Object.keys(state.currencyList);
     },
     FIND_CURRENCY_NAME: (state, getters) => (currencyName) => {
-      return getters.GET_CURRENCY_NAME.filter((nname) =>
+      return getters.GET_CURRENCY_CODE.filter((nname) =>
         nname.startsWith(currencyName.replace(/\d+\s+/, "").toUpperCase())
       );
+    },
+    GET_CURRENSY_NAME: (state) => (code) => {
+      return state.currencyList[code];
     },
   },
   mutations: {
@@ -34,6 +38,9 @@ export default createStore({
     SET_RATE: (state, price) => {
       state.rate = price;
     },
+    SET_RATES: (state, rates) => {
+      state.rates = rates;
+    },
   },
   actions: {
     GET_USER_INPUTS({ commit, dispatch }, parsedValue) {
@@ -41,18 +48,20 @@ export default createStore({
       dispatch("FETCH_RATE");
     },
     async FETCH_CURRENCY_LIST({ commit }) {
-      const response = await fetch(
-        `https://openexchangerates.org/api/currencies.json`
-      );
+      const response = await fetch(currenciesUrl);
       const currencyList = await response.json();
       commit("SET_CURRENCY_LIST", currencyList);
     },
     async FETCH_RATE({ commit, state }) {
       const response = await fetch(
-        createPriceRequestUrl(state.curentCurrency, state.targetCurrency)
+        createPriceRequestUrl(
+          state.curentCurrency,
+          Object.keys(state.currencyList).join().slice(0, 500)
+        )
       );
-      const price = await response.json();
-      commit("SET_RATE", price[state.targetCurrency]);
+      const rate = await response.json();
+      commit("SET_RATE", rate[state.targetCurrency]);
+      commit("SET_RATES", rate);
     },
   },
 });

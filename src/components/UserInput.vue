@@ -1,10 +1,11 @@
 <template>
   <input
     v-model.trim="value"
-    @input="this.matchName = FIND_CURRENCY_NAME($event.target.value)"
+    @input="this.matchName = FIND_CURRENCY_NAME(value)"
     type="text"
     class="input"
     placeholder="10 RUB in USD"
+    tabindex="1"
   />
   <div v-if="matchName && value" class="match-names">
     <span

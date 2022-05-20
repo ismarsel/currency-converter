@@ -23,7 +23,6 @@ export default {
   },
   mounted() {
     this.FETCH_CURRENCY_LIST();
-    this.FETCH_RATE();
   },
 };
 </script>

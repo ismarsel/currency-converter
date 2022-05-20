@@ -1,5 +1,4 @@
-const API_KEY = "6b825fe12c81453e99a647624f6b7d5e";
-const getRatesUrl = "https://openexchangerates.org/api/latest.json";
+const currenciesUrl = "https://openexchangerates.org/api/currencies.json";
 
 function createPriceRequestUrl(base, target) {
   const priceUrl = new URL(
@@ -9,4 +8,4 @@ function createPriceRequestUrl(base, target) {
   priceUrl.searchParams.set("tsyms", target);
   return priceUrl.toString();
 }
-export { API_KEY, getRatesUrl, createPriceRequestUrl };
+export { currenciesUrl, createPriceRequestUrl };
