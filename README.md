@@ -1,24 +1,16 @@
-# currency-converter
+# Конвертер валют
+![](https://i.ibb.co/YchvyVx/convrtr.jpg)
+Парсит введенную строку и выводит курс.
+Так как бесплатные API с котировками имеют ограничения, я использовал два ресурса для получения списка и курса, а также оборезал строку в параметрах запроса на курс.
 
-## Project setup
+## Инструменты
+Vue3, Vuex, Vue-Router
+
+## Запуск проекта
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+либо посмотреть поо ссылке : http://cw97705.tmweb.ru
